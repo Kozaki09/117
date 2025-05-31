@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Finance Tracker Calendar</title>
     <link rel="stylesheet" href="css/style.css" />
-    <script src="js/check_session.js"></script>
+    <script src="js/get_session.js"></script>
     <script src="js/entry_actions.js"></script>
   </head>
   <body>
@@ -32,15 +32,15 @@
     <div id="entryModal">
       <h2 id="selectedDateTitle"></h2>
       <form>
-        <label for="type"><strong>Type:</strong></label>
         <select id="type">
           <option value="in">Money In</option>
           <option value="out">Money Out</option>
         </select><br /><br />
-
-        <input type="hidden" id="date" name="date">
-        <input type="text" id="desc" placeholder="Description" /><br /><br />
-        <input type="number" id="amount" placeholder="Amount" /><br /><br />
+        <div class="input-group">
+          <input type="hidden" id="date" name="date">
+          <input type="text" id="desc" placeholder="Description" /><br /><br />
+          <input type="number" id="amount" placeholder="Amount" /><br /><br />
+        </div>
 
         <button onclick="addEntry()">Add Entry</button>
         <button onclick="closeModal()">Close</button>
@@ -51,6 +51,9 @@
 
     <div id="modalOverlay" onclick="closeModal()"></div>
     <div id="toast"></div>
+
+    <button onclick="logout()">Logout</button>
+    <script src="js/logout.js"></script>
     <script>
       const calendarEl = document.getElementById("calendar");
       const selectedDateTitle = document.getElementById("selectedDateTitle");
