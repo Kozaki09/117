@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <title>Finance Tracker Calendar</title>
+    <!-- stylesheets -->
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/overview.css?v=2" />
     <link rel="stylesheet" href="css/toast.css" />
+    <!-- scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/get_session.js"></script>
     <script src="js/toast.js"></script>
@@ -31,6 +34,31 @@
         <div>Sat</div>
       </div>
       <div id="calendar" class="calendar"></div>
+    </div>
+
+    <div id="overview-wrapper">
+      <div id="overview-header">
+        <h4>User:</h4><p id="user-label"></p>
+      </div>
+      <div id="overview-content">
+        <div class="overview-column">
+          <h3>Overall Spending</h3>
+          <div class="overview-row"><h3>Overall In:</h3><p id="overall-in"></p></div>
+          <div class="overview-row"><h3>Overall Out:</h3><p id="overall-out"></p></div>
+          <div class="overview-row"><h3>Overall Spending:</h3><p id="overall-spending"></p></div>
+          <div class="overview-row"><h3>Overall Savings:</h3><p id="overall-savings"></p></div>
+        </div>
+        <div class="overview-column">
+          <h3>Monthly Spending</h3>
+          <div class="overview-row"><h3>Monthly In:</h3><p id="monthly-in"></p></div>
+          <div class="overview-row"><h3>Monthly Out:</h3><p id="monthly-out"></p></div>
+          <div class="overview-row"><h3>Monthly Spending:</h3><p id="monthly-spending"></p></div>
+          <div class="overview-row"><h3>Monthly Savings:</h3><p id="monthly-savings"></p></div>
+        </div>
+      </div>
+      <div id="overview-footer"> 
+        <button id="logoutBtn">Logout</button>
+      </div>
     </div>
 
     <!-- Modal -->
@@ -60,6 +88,6 @@
     <div id="modalOverlay"></div>
     <div id="toast-container"></div>
 
-    <button id="logoutBtn">Logout</button>
+    
   </body>
 </html>

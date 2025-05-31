@@ -1,4 +1,3 @@
-let financeData = {};
 let selectedDate = "";
 
 async function getEntry() {
@@ -25,8 +24,15 @@ async function getEntry() {
         type: entry.type,
         desc: entry.description,
         amount: parseFloat(entry.amount),
+        date: entry.date
       });
     });
+
+    const now = new Date();
+    let selectedMonth = now.getMonth();
+    let selectedYear = now.getFullYear();
+
+    updateOverview(selectedMonth, selectedYear); 
   } catch (error) {
     console.error("Failed to load entries:", error);
   }
@@ -97,4 +103,39 @@ function showEntries() {
   $("#entryList").html(items.join("") + `<li style="margin-top:10px; font-weight:bold;">Total: ₱${total.toFixed(2)}</li>`);
 }
 
+function filterEntriesByMonthYear(month, year) {
+  const allEntries = Object.values(financeData).flat();
+  return allEntries.filter(entry => {
+    const entryDate = new Date(entry.date);
+    return entryDate.getMonth() === month && entryDate.getFullYear() === year;
+  });
+}
 
+function updateOverview(selectedMonth, selectedYear) {
+  const allEntries = Object.values(financeData).flat();
+
+  let overallIn = 0, overallOut = 0;
+  allEntries.forEach(e => {
+    if (e.type === 'in') overallIn += e.amount;
+    else if (e.type === 'out') overallOut += e.amount;
+  });
+
+  const monthlyEntries = filterEntriesByMonthYear(selectedMonth, selectedYear);
+
+  let monthlyIn = 0, monthlyOut = 0;
+  monthlyEntries.forEach(e => {
+    if (e.type === 'in') monthlyIn += e.amount;
+    else if (e.type === 'out') monthlyOut += e.amount;
+  });
+
+  // Update DOM elements
+  $("#overall-in").text(`₱${overallIn.toFixed(2)}`);
+  $("#overall-out").text(`₱${overallOut.toFixed(2)}`);
+  $("#overall-spending").text(`₱${(overallOut - overallIn).toFixed(2)}`);
+  $("#overall-savings").text(`₱${(overallIn - overallOut).toFixed(2)}`);
+
+  $("#monthly-in").text(`₱${monthlyIn.toFixed(2)}`);
+  $("#monthly-out").text(`₱${monthlyOut.toFixed(2)}`);
+  $("#monthly-spending").text(`₱${(monthlyOut - monthlyIn).toFixed(2)}`);
+  $("#monthly-savings").text(`₱${(monthlyIn - monthlyOut).toFixed(2)}`);
+}

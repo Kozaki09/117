@@ -1,39 +1,49 @@
-$(document).ready(function () {
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
+let financeData = {};
 
-  const now = new Date();
-  let selectedMonth = now.getMonth();
-  let selectedYear = now.getFullYear();
+$(document).ready(async function () {
+    try {
+        await getEntry();
+    } catch (error) {
+        console.error("Failed to load entries:", error);
+    }
+    console.log("ANother:", financeData);
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
 
-  const $calendar = $("#calendar");
-  const $monthSelect = $("#monthSelect");
-  const $yearSelect = $("#yearSelect");
+    const now = new Date();
+    let selectedMonth = now.getMonth();
+    let selectedYear = now.getFullYear();
 
-  for (let i = 0; i < 12; i++) {
-    $monthSelect.append(`<option value="${i}">${monthNames[i]}</option>`);
-  }
+    const $calendar = $("#calendar");
+    const $monthSelect = $("#monthSelect");
+    const $yearSelect = $("#yearSelect");
 
-  for (let y = 1990; y <= 2100; y++) {
-    $yearSelect.append(`<option value="${y}">${y}</option>`);
-  }
+    for (let i = 0; i < 12; i++) {
+        $monthSelect.append(`<option value="${i}">${monthNames[i]}</option>`);
+    }
 
-  $monthSelect.val(selectedMonth);
-  $yearSelect.val(selectedYear);
+    for (let y = 1990; y <= 2100; y++) {
+        $yearSelect.append(`<option value="${y}">${y}</option>`);
+    }
 
-  $monthSelect.on("change", function () {
-    selectedMonth = parseInt($(this).val());
-    generateCalendar();
-  });
+    $monthSelect.val(selectedMonth);
+    $yearSelect.val(selectedYear);
 
-  $yearSelect.on("change", function () {
-    selectedYear = parseInt($(this).val());
-    generateCalendar();
-  });
+    $monthSelect.on("change", function () {
+        selectedMonth = parseInt($(this).val());
+        generateCalendar();
+        updateOverview(selectedMonth, selectedYear);
+    }); 
 
-  function formatDate(dateStr) {
+    $yearSelect.on("change", function () {
+        selectedYear = parseInt($(this).val());
+        generateCalendar();
+        updateOverview(selectedMonth, selectedYear);
+    });
+
+    function formatDate(dateStr) {
     const date = new Date(dateStr);
     return `${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
   }
@@ -47,9 +57,13 @@ $(document).ready(function () {
       $calendar.append(`<div></div>`);
     }
 
+    console.log("Test data from calender.js: ", financeData);
     for (let d = 1; d <= daysInMonth; d++) {
       const dateStr = `${selectedYear}-${String(selectedMonth + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-      $calendar.append(`<div class="day" data-date="${dateStr}">${d}</div>`);
+
+      const hasEntry = financeData[dateStr] && financeData[dateStr].length > 0;
+      const dayClass = hasEntry ? "day has-entry" : "day";
+      $calendar.append(`<div class="${dayClass}" data-date="${dateStr}">${d}</div>`);
     }
   }
 
