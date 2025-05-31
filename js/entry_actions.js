@@ -1,11 +1,6 @@
 let financeData = {};
 let selectedDate = "";
 
-function showToast(message) {
-  $("#toast").text(message).addClass("show");
-  setTimeout(() => $("#toast").removeClass("show"), 2000);
-}
-
 async function getEntry() {
   try {
     const response = await fetch("api/get_entry.php", {

@@ -336,26 +336,3 @@ button:hover {
   padding-top: 10px;
   text-align: right;
 }
-
-/* Toast */
-#toast {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 180px;
-  padding: 10px;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  border-radius: 4px;
-  opacity: 0;
-  visibility: hidden;
-  z-index: 2000;
-  transition: opacity 0.4s ease;
-}
-
-#toast.show {
-  opacity: 1;
-  visibility: visible;
-}
