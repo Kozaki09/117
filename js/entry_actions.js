@@ -101,6 +101,8 @@ function showEntries() {
   });
 
   $("#entryList").html(items.join("") + `<li style="margin-top:10px; font-weight:bold;">Total: ₱${total.toFixed(2)}</li>`);
+
+  generateCalendar();
 }
 
 function filterEntriesByMonthYear(month, year) {

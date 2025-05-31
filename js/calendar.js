@@ -67,6 +67,8 @@ $(document).ready(async function () {
     }
   }
 
+  window.generateCalendar = generateCalendar; 
+
   $(document).on("click", ".day", function () {
     selectedDate = $(this).data("date");
     $("#date").val(selectedDate);
