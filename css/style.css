@@ -1,4 +1,4 @@
-/* Reset + Login Priority */
+/* Reset + Base */
 * {
   margin: 0;
   padding: 0;
@@ -6,10 +6,29 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* Body Background */
 body {
   text-align: center;
   background: linear-gradient(to right, #24fffb, #ff42f6);
+}
+
+/* Containers */
+.container,
+.calendar-wrapper {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 20px 35px rgba(0, 0, 1, 0.09);
+  margin: 50px auto;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 450px;
+}
+
+.calendar-wrapper {
+  width: 90%;
+  max-width: 500px;
 }
 
 /* Controls */
@@ -18,17 +37,6 @@ body {
   display: flex;
   justify-content: center;
   gap: 10px;
-}
-
-.calendar-wrapper {
-  background: #fff;
-  width: 90%;
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 20px 35px rgba(0, 0, 1, 0.09);
-  box-sizing: border-box;
 }
 
 /* Calendar Header */
@@ -48,10 +56,10 @@ body {
 
 /* Calendar Days */
 .calendar {
-  width: 100%;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
+  width: 100%;
 }
 
 .day {
@@ -69,63 +77,57 @@ body {
   background: rgb(125, 125, 235);
 }
 
-/* Login Container (for login screen) */
-.container {
-  background: #fff;
-  width: 450px;
-  padding: 1.5rem;
-  margin: 50px auto;
-  border-radius: 10px;
-  box-shadow: 0 20px 35px rgba(0, 0, 1, 0.09);
-}
-
-/* Login Form & Inputs */
+/* Forms */
 form {
   margin: 0 2rem;
 }
 
-.form-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-align: center;
-  padding: 1.3rem;
-  margin-bottom: 0.4rem;
-}
-
 .input-group {
-  padding: 1% 0;
   position: relative;
+  padding: 1% 0;
 }
 
 .input-group i {
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 0.5rem;
   transform: translateY(-50%);
-  padding-left: 0.5rem;
   color: black;
 }
 
-input {
+input,
+#entryModal .input-group input {
   width: 100%;
+  background: transparent;
+  font-size: 1rem;
+  padding: 0.75rem 0.75rem 0.75rem 2rem;
   border: none;
   border-bottom: 1px solid #5c5c5c;
-  padding: 0.75rem 0.75rem 0.75rem 2rem;
-  font-size: 15px;
-  background: transparent;
   transition: border-color 0.3s ease;
+  box-sizing: border-box;
 }
 
-input:focus {
+#entryModal .input-group input {
+  padding: 12px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-left: 10px;
+  border-bottom: none;
+}
+
+input:focus,
+#entryModal .input-group input:focus {
   outline: none;
   border-bottom: 2px solid hsl(327, 90%, 28%);
+  border-color: hsl(327, 90%, 28%);
 }
 
 input::placeholder {
   color: transparent;
 }
 
-label {
+label,
+#entryModal .input-group label {
   color: #757575;
   position: absolute;
   left: 2rem;
@@ -133,15 +135,27 @@ label {
   pointer-events: none;
   transition: 0.3s ease all;
   font-size: 0.9rem;
+  background: #fff;
+  padding: 0 4px;
+}
+
+#entryModal .input-group label {
+  left: 10px;
+  top: 12px;
+  padding: 0 4px;
 }
 
 input:focus ~ label,
-input:not(:placeholder-shown) ~ label {
+input:not(:placeholder-shown) ~ label,
+#entryModal .input-group input:focus ~ label,
+#entryModal .input-group input:not(:placeholder-shown) ~ label {
   top: -0.4rem;
   font-size: 0.75rem;
   color: hsl(327, 90%, 28%);
-  background: #fff;
-  padding: 0 4px;
+}
+
+#entryModal .input-group input:not(:placeholder-shown) ~ label {
+  top: -8px; /* slightly different for modal */
 }
 
 /* Recover link */
@@ -152,8 +166,9 @@ input:not(:placeholder-shown) ~ label {
 }
 
 .recover a {
-  text-decoration: none;
   color: rgb(125, 125, 235);
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
 .recover a:hover {
@@ -162,30 +177,42 @@ input:not(:placeholder-shown) ~ label {
 }
 
 /* Buttons */
-.btn {
-  margin-top: 1.5rem;
-  font-size: 1.1rem;
-  padding: 8px 0;
-  border-radius: 5px;
-  outline: none;
-  border: none;
+.btn,
+#entryModal button {
   width: 100%;
+  padding: 8px 0;
+  margin-top: 1.5rem;
+  border-radius: 5px;
+  border: none;
   background: rgb(125, 125, 235);
   color: white;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
 }
 
-.btn:hover {
+.btn:hover,
+#entryModal button:hover {
   background: rgba(101, 101, 168, 0.834);
 }
 
+/* Additional Modal Buttons */
+#entryModal button {
+  width: auto;
+  margin: 5px 5px 10px 0;
+  padding: 8px 12px;
+}
+
+/* Or separator */
 .or {
   font-size: 1.1rem;
   margin-top: 1rem;
   text-align: center;
 }
 
+/* Icons */
 .icons {
   text-align: center;
 }
@@ -197,16 +224,16 @@ input:not(:placeholder-shown) ~ label {
   font-size: 1.5rem;
   cursor: pointer;
   border: 2px solid rgb(125, 125, 235);
-  margin: 0 15px;
-  margin-top: 1rem;
+  margin: 1rem 15px 0 15px;
   transition: 0.3s ease;
 }
 
 .icons i:hover {
-  background: rgba(101, 101, 168, 0.300);
+  background: rgba(101, 101, 168, 0.3);
   font-size: 1.6rem;
 }
 
+/* Links */
 .links {
   display: flex;
   justify-content: space-around;
@@ -216,31 +243,33 @@ input:not(:placeholder-shown) ~ label {
 }
 
 button {
-  color: rgb(125, 125, 235);
+  background: transparent;
   border: none;
-  background-color: transparent;
+  color: rgb(125, 125, 235);
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 button:hover {
-  text-decoration: underline;
   color: rgb(60, 60, 247);
+  text-decoration: underline;
 }
 
+/* Modal */
 #entryModal {
   display: none;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
-  padding: 25px;
   width: 90%;
   max-width: 400px;
-  border: 1px solid #ccc;
+  background: #fff;
+  padding: 25px;
   border-radius: 10px;
+  border: 1px solid #ccc;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   text-align: left;
@@ -259,25 +288,23 @@ button:hover {
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
-#entryModal button {
-  margin: 5px 5px 10px 0;
-  padding: 8px 12px;
-  border-radius: 5px;
-  border: none;
-  background-color: rgb(125, 125, 235);
-  color: white;
-  cursor: pointer;
-}
-
-#entryModal button:hover {
-  background-color: rgba(101, 101, 168, 0.834);
+/* Entry List */
+#entryList {
+  list-style: none;
+  padding: 0;
 }
 
 #entryList li {
-  margin-bottom: 10px;
   font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+#entryList li span.desc {
+  font-weight: 500;
+  margin-right: 10px;
 }
 
 #entryList li span.amount-in {
@@ -288,17 +315,13 @@ button:hover {
   color: red;
 }
 
-#entryList li span.desc {
-  font-weight: 500;
-  margin-right: 10px;
-}
-
 #entryList li button {
   background: none;
   border: none;
   color: rgb(125, 125, 235);
   cursor: pointer;
   margin-left: 10px;
+  transition: text-decoration 0.3s ease;
 }
 
 #entryList li button:hover {
@@ -314,64 +337,25 @@ button:hover {
   text-align: right;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-}
-
 /* Toast */
 #toast {
-  visibility: hidden;
-  min-width: 180px;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  border-radius: 4px;
-  padding: 10px;
   position: fixed;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 2000;
+  min-width: 180px;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
   opacity: 0;
+  visibility: hidden;
+  z-index: 2000;
   transition: opacity 0.4s ease;
 }
 
 #toast.show {
-  visibility: visible;
   opacity: 1;
+  visibility: visible;
 }
-
-#entryModal .input-group {
-  position: relative;
-  margin-bottom: 1.5rem;
-}
-
-#entryModal .input-group input {
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 12px 10px 12px 10px;
-  font-size: 1rem;
-  background: transparent;
-}
-
-#entryModal .input-group label {
-  color: #757575;
-  position: absolute;
-  left: 10px;
-  top: 12px;
-  pointer-events: none;
-  transition: 0.3s ease all;
-  font-size: 0.9rem;
-  background: #fff;
-  padding: 0 4px;
-}
-
-#entryModal .input-group input:focus ~ label,
-#entryModal .input-group input:not(:placeholder-shown) ~ label {
-  top: -8px;
-  font-size: 0.75rem;
-  color: hsl(327, 90%, 28%);
-}
-

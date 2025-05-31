@@ -1,52 +1,48 @@
-async function getEntry() {
-  const response = await fetch('api/get_entry.php', {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json'
-    },
-    credentials: 'include'
-  });
+let financeData = {};
+let selectedDate = "";
 
-  if (!response.ok) {
-    throw new Error('HTTP error! Status: ${response.status}');
-  }
-
-  const data = await response.json();
-
-  financeData = {};
-
-  data.forEach(entry => {
-    const date = entry.date;
-    if (!financeData[date]) {
-      financeData[date] = [];
-    }
-    financeData[date].push({
-      id: entry.id,
-      type: entry.type,
-      desc: entry.description,
-      amount: parseFloat(entry.amount)
-    });
-  });
-
-  console.log(financeData);
+function showToast(message) {
+  $("#toast").text(message).addClass("show");
+  setTimeout(() => $("#toast").removeClass("show"), 2000);
 }
 
-async function addEntry() {
-  const amount = parseFloat(document.getElementById("amount").value);
-  const desc = document.getElementById('desc').value.trim();
-  const type = document.getElementById('type').value;
-  const date = document.getElementById('date').value;
-
-  if (!desc || isNaN(amount)) {
-    showToast("Please enter valid description and amount.");
-    return;
-  }
+async function getEntry() {
   try {
+    const response = await fetch("api/get_entry.php", {
+      method: "GET",
+      headers: { Accept: "application/json" },
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    financeData = {};
+
+    data.forEach((entry) => {
+      if (!financeData[entry.date]) {
+        financeData[entry.date] = [];
+      }
+      financeData[entry.date].push({
+        id: entry.id,
+        type: entry.type,
+        desc: entry.description,
+        amount: parseFloat(entry.amount),
+      });
+    });
+  } catch (error) {
+    console.error("Failed to load entries:", error);
+  }
+}
+
+async function addEntry(date, desc, amount, type) {
+  try {
+    desc = desc.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     const response = await fetch("api/add_entry.php", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ date, desc, amount, type }),
     });
 
@@ -55,39 +51,31 @@ async function addEntry() {
     }
 
     showToast("Entry added!");
-    document.getElementById("desc").value = "";
-    document.getElementById("amount").value = "";
-    document.getElementById("type").value = "in";
-
     await getEntry();
     showEntries();
-    } catch (error) {
+  } catch (error) {
     console.error("Error adding entry:", error);
     showToast("Failed to add entry. Try again.");
-    }
+  }
 }
 
-async function deleteEntry(entryId, date) {
+async function deleteEntry(entryId) {
   try {
-    const response = await fetch('api/del_entry.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include',
-      body: JSON.stringify({ id: entryId })
+    const response = await fetch("api/del_entry.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ id: entryId }),
     });
 
     const result = await response.json();
 
-
     if (result.success) {
-      showEntries();
-      showToast("Entry Deleted.");
+      showToast("Entry deleted.");
     } else {
       showToast("Failed to delete entry.");
     }
-  }  catch (error) {
+  } catch (error) {
     console.error("Error deleting entry:", error);
     showToast("Error deleting entry.");
   }
@@ -100,15 +88,18 @@ function showEntries() {
   const entries = financeData[selectedDate] || [];
   let total = 0;
 
-  entryList.innerHTML = entries.map((e, i) => {
+  const items = entries.map((e) => {
     const color = e.type === "out" ? "red" : "green";
     const signedAmount = e.type === "out" ? -e.amount : e.amount;
     total += signedAmount;
 
-    return `<li style="color:${color}">${e.desc} (${e.type === "in" ? "IN" : "OUT"}) - ₱${e.amount}
-      <button onclick="deleteEntry(${e.id}, '${date}')">Delete</button></li>`;
+    return `<li style="color:${color}">
+              ${e.desc} (${e.type.toUpperCase()}) - ₱${e.amount}
+              <button class="delete-btn" data-id="${e.id}">Delete</button>
+            </li>`;
+  });
 
-  }).join("");
-
-  entryList.innerHTML += `<li style="margin-top:10px; font-weight:bold;">Total: ₱${total.toFixed(2)}</li>`;
+  $("#entryList").html(items.join("") + `<li style="margin-top:10px; font-weight:bold;">Total: ₱${total.toFixed(2)}</li>`);
 }
+
+

@@ -4,8 +4,13 @@
     <meta charset="UTF-8" />
     <title>Finance Tracker Calendar</title>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/toast.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/get_session.js"></script>
+    <script src="js/toast.js"></script>
     <script src="js/entry_actions.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/logout.js"></script>
   </head>
   <body>
     <h1>Finance Tracker</h1>
@@ -31,115 +36,30 @@
     <!-- Modal -->
     <div id="entryModal">
       <h2 id="selectedDateTitle"></h2>
-      <form>
+      <form id="entryForm">
         <select id="type">
           <option value="in">Money In</option>
           <option value="out">Money Out</option>
         </select><br /><br />
+        <input type="hidden" id="date" name="date">
         <div class="input-group">
-          <input type="hidden" id="date" name="date">
-          <input type="text" id="desc" placeholder="Description" /><br /><br />
-          <input type="number" id="amount" placeholder="Amount" /><br /><br />
+          <input type="text" id="desc" placeholder=" " required />
+          <label for="desc">Description</label>
         </div>
-
-        <button onclick="addEntry()">Add Entry</button>
-        <button onclick="closeModal()">Close</button>
+        <div class="input-group">
+          <input type="number" id="amount" placeholder=" " required />
+          <label for="amount">Amount</label>
+        </div>
+        <button type="submit">Add Entry</button>
+        <button type="button" id="closeModalBtn">Close</button>
       </form>
 
       <ul id="entryList"></ul>
     </div>
 
-    <div id="modalOverlay" onclick="closeModal()"></div>
-    <div id="toast"></div>
+    <div id="modalOverlay"></div>
+    <div id="toast-container"></div>
 
-    <button onclick="logout()">Logout</button>
-    <script src="js/logout.js"></script>
-    <script>
-      const calendarEl = document.getElementById("calendar");
-      const selectedDateTitle = document.getElementById("selectedDateTitle");
-      const entryList = document.getElementById("entryList");
-      const monthSelect = document.getElementById("monthSelect");
-      const yearSelect = document.getElementById("yearSelect");
-
-      const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-      ];
-
-      let selectedDate = "";
-      let financeData = {};
-
-      const now = new Date();
-      let selectedMonth = now.getMonth();
-      let selectedYear = now.getFullYear();
-
-      for (let i = 0; i < 12; i++) {
-        monthSelect.innerHTML += `<option value="${i}">${monthNames[i]}</option>`;
-      }
-      for (let y = 1990; y <= 2100; y++) {
-        yearSelect.innerHTML += `<option value="${y}">${y}</option>`;
-      }
-      monthSelect.value = selectedMonth;
-      yearSelect.value = selectedYear;
-
-      monthSelect.addEventListener("change", () => {
-        selectedMonth = parseInt(monthSelect.value);
-        generateCalendar();
-      });
-      yearSelect.addEventListener("change", () => {
-        selectedYear = parseInt(yearSelect.value);
-        generateCalendar();
-      });
-
-      function generateCalendar() {
-        const firstDay = new Date(selectedYear, selectedMonth, 1).getDay();
-        const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
-        calendarEl.innerHTML = "";
-
-        for (let i = 0; i < firstDay; i++) {
-          calendarEl.innerHTML += `<div></div>`;
-        }
-
-        for (let d = 1; d <= daysInMonth; d++) {
-          const dateStr = `${selectedYear}-${String(selectedMonth + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-          calendarEl.innerHTML += `<div class="day" onclick="openForm('${dateStr}')">${d}</div>`;
-        }
-      }
-
-      function formatDate(dateStr) {
-        const date = new Date(dateStr);
-        return `${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-      }
-
-      function openForm(date) {
-        selectedDate = date;
-        document.getElementById("date").value = date;
-        document.getElementById("desc").value = "";
-        document.getElementById("amount").value = "";
-        document.getElementById("type").value = "in";
-
-        selectedDateTitle.textContent = `Entries for ${formatDate(date)}`;
-        document.getElementById("entryModal").style.display = "block";
-        document.getElementById("modalOverlay").style.display = "block";
-        showEntries();
-      }
-
-      function closeModal() {
-        document.getElementById("entryModal").style.display = "none";
-        document.getElementById("modalOverlay").style.display = "none";
-      }
-
-      function showToast(message) {
-        const toast = document.getElementById("toast");
-        toast.textContent = message;
-        toast.className = "show";
-        setTimeout(() => {
-          toast.className = toast.className.replace("show", "");
-        }, 2000);
-      }
-
-      generateCalendar();
-      getEntry();
-    </script>
+    <button id="logoutBtn">Logout</button>
   </body>
 </html>
