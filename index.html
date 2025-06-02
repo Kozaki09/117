@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <title>Finance Tracker Calendar</title>
@@ -15,6 +16,7 @@
     <script src="js/calendar.js"></script>
     <script src="js/logout.js"></script>
   </head>
+
   <body>
     <h1>Finance Tracker</h1>
 
@@ -38,25 +40,50 @@
 
     <div id="overview-wrapper">
       <div id="overview-header">
-        <h4>User:</h4><p id="user-label"></p>
+        <h4>User:</h4>
+        <p id="user-label"></p>
       </div>
       <div id="overview-content">
         <div class="overview-column">
           <h3>Overall Spending</h3>
-          <div class="overview-row"><h3>Overall In:</h3><p id="overall-in"></p></div>
-          <div class="overview-row"><h3>Overall Out:</h3><p id="overall-out"></p></div>
-          <div class="overview-row"><h3>Overall Spending:</h3><p id="overall-spending"></p></div>
-          <div class="overview-row"><h3>Overall Savings:</h3><p id="overall-savings"></p></div>
+          <div class="overview-row">
+            <h3>Overall In:</h3>
+            <p id="overall-in"></p>
+          </div>
+          <div class="overview-row">
+            <h3>Overall Out:</h3>
+            <p id="overall-out"></p>
+          </div>
+          <div class="overview-row">
+            <h3>Overall Spending:</h3>
+            <p id="overall-spending"></p>
+          </div>
+          <div class="overview-row">
+            <h3>Overall Savings:</h3>
+            <p id="overall-savings"></p>
+          </div>
         </div>
         <div class="overview-column">
           <h3>Monthly Spending</h3>
-          <div class="overview-row"><h3>Monthly In:</h3><p id="monthly-in"></p></div>
-          <div class="overview-row"><h3>Monthly Out:</h3><p id="monthly-out"></p></div>
-          <div class="overview-row"><h3>Monthly Spending:</h3><p id="monthly-spending"></p></div>
-          <div class="overview-row"><h3>Monthly Savings:</h3><p id="monthly-savings"></p></div>
+          <div class="overview-row">
+            <h3>Monthly In:</h3>
+            <p id="monthly-in"></p>
+          </div>
+          <div class="overview-row">
+            <h3>Monthly Out:</h3>
+            <p id="monthly-out"></p>
+          </div>
+          <div class="overview-row">
+            <h3>Monthly Spending:</h3>
+            <p id="monthly-spending"></p>
+          </div>
+          <div class="overview-row">
+            <h3>Monthly Savings:</h3>
+            <p id="monthly-savings"></p>
+          </div>
         </div>
       </div>
-      <div id="overview-footer"> 
+      <div id="overview-footer">
         <button id="logoutBtn">Logout</button>
       </div>
     </div>
@@ -78,16 +105,36 @@
           <input type="number" id="amount" placeholder=" " required />
           <label for="amount">Amount</label>
         </div>
-        <button type="submit">Add Entry</button>
+        <button type="submit" id="entry-action">Add Entry</button>
         <button type="button" id="closeModalBtn">Close</button>
       </form>
 
       <ul id="entryList"></ul>
     </div>
 
+    <div id="updateModal">
+      <h2>Update Entry</h2>
+      <form id="updateForm">
+        <input type="hidden" id="updateId" name="id">
+        <select id="updateType">
+          <option value="in">Money In</option>
+          <option value="out">Money Out</option>
+        </select><br /><br />
+        <div class="input-group">
+          <input type="text" id="updateDesc" placeholder=" " required />
+          <label for="updateDesc">Description</label>
+        </div>
+        <div class="input-group">
+          <input type="number" id="updateAmount" placeholder=" " required />
+          <label for="updateAmount">Amount</label>
+        </div>
+        <button type="submit" id="update-action">Update</button>
+        <button type="button" id="closeUpdateModalBtn">Cancel</button>
+      </form>
+    </div>
+
     <div id="modalOverlay"></div>
     <div id="toast-container"></div>
-
-    
   </body>
+
 </html>
