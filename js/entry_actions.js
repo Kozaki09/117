@@ -155,45 +155,72 @@ function updateOverview(selectedMonth, selectedYear) {
 	$("#monthly-savings").text(`₱${(monthlyIn - monthlyOut).toFixed(2)}`);
 }
 
+$(document).on("click", "#closeUpdateModalBtn", function() {
+  $("#updateModal").hide();
+  $("entryModal, #modalOveraly").show();
+});
+
+$(document).on("click", "#update-action", async function(e) {
+  e.preventDefault();
+
+  const entryId = $("#updateId").val();
+  const desc = $("#updateDesc").val();
+  const amount = parseFloat($("#updateAmount").val());
+  const type = $("#updateType").val();
+
+  
+  if (!desc || isNaN(amount) || !type) {
+    showToast("Please fill in all fields.");
+    return;
+  }
+
+  setTimeout(() => {
+    console.log("TEST:", {entryId, desc, amount, type});
+  }, 5000); 
+  
+    try {
+      const response = await fetch("api/update_entry.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: entryId,
+          desc: desc,
+          amount: amount,
+          type: type,
+        }),
+      }); 
+    
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+  
+  } catch (error) {
+    console.error("Error updating entry:", error);
+    showToast("Failed to update entry.");
+    return;
+  }
+
+  
+
+  showToast("Entry updated succesfully!");
+  $("#updateModal").hide();
+  await getEntry();
+  showEntries();
+});
+
 $(document).on("click", ".edit-btn", function () {
-	$("#entryModal, #modalOverlay").hide();
-	$("#updateModal").show();
 	const entryId = $(this).data("id");
 	const entry = financeData[selectedDate].find((e) => e.id === entryId);
+	if (!entry) {
+		showToast("Entry not found.");
+		return;
+	}
 
-	$(document).on("click", "#closeUpdateModalBtn", function () {
-		$("#updateModal").hide();
-		$("#entryModal, #modalOverlay").show();
-	});
+  $("#updateId").val(entryId);
+	$("#updateDesc").val(entry.desc);
+	$("#updateAmount").val(entry.amount);
+	$("#updateType").val(entry.type);
 
-	$(document).on("click", "#updateEntryForm", async function (e) {
-		e.preventDefault();
-		const desc = $("#updateDesc").val();
-		const amount = parseFloat($("#updateAmount").val());
-		const type = $("#updateType").val();
-		if (!desc || isNaN(amount) || !type) {
-			showToast("Please fill in all fields.");
-			return;
-		}
-		try {
-			const response = await fetch("api/update_entry.php", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ id: entryId, desc, amount, type }),
-			});
-
-			if (!response.ok) {
-				throw new Error(`Server error: ${response.status}`);
-			}
-
-			showToast("Entry updated successfully!");
-			$("#updateModal").hide();
-			$("#entryModal, #modalOverlay").show();
-			await getEntry();
-			showEntries();
-		} catch (error) {
-			console.error("Error updating entry:", error);
-			showToast("Failed to update entry. Try again.");
-		}
-	});
+	$("#entryModal, #modalOverlay").hide();
+	$("#updateModal").show();
 });
