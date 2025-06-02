@@ -1,3 +1,8 @@
+/* ======= Import Google Font ======= */
+/* Add this inside your HTML <head>: 
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+*/
+
 /* ======= Base Reset and Typography ======= */
 * {
   margin: 0;
@@ -6,9 +11,9 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(to right, #24fffb, #ff42f6);
-  color: #333;
+  font-family: "Orbitron", sans-serif;
+  background-color: #0f172a;
+  color: #f1f5f9;
   text-align: center;
   padding-bottom: 40px;
 }
@@ -16,11 +21,12 @@ body {
 /* ======= Layout Containers ======= */
 .container,
 .calendar-wrapper {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+  background-color: #1e2a3c;
+  border-radius: 14px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
   margin: 40px auto;
   padding: 1.5rem;
+  border: 1px solid #334155;
 }
 
 .container {
@@ -43,7 +49,9 @@ body {
 select {
   padding: 8px 12px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid #475569;
+  background-color: #334155;
+  color: #f1f5f9;
   font-size: 14px;
 }
 
@@ -57,40 +65,42 @@ select {
 
 .calendar-header div {
   font-weight: bold;
-  background: #e9e9fd;
+  background: #1e293b;
+  color: #f87171;
   padding: 10px;
   border-radius: 5px;
 }
 
 .day {
-  background: #f9f9f9;
-  border: 1px solid #ddd;
+  background: #334155;
+  border: 1px solid #475569;
   border-radius: 6px;
   padding: 10px;
   min-height: 80px;
   position: relative;
   transition: background 0.2s;
   cursor: pointer;
+  color: #f1f5f9;
 }
 
 .day:hover {
-  background-color: #eefaff;
+  background-color: #1e293b;
 }
 
 .day.has-entry:hover {
-  background-color: #bae7ff;
+  background-color: #1c3c54;
 }
 
 .day.income .amount {
-  color: green;
+  color: #4ade80; 
 }
 
 .day.expense .amount {
-  color: red;
+  color: #f87171; 
 }
 
 .day.has-entry {
-  background-color: #e6f7ff; 
+  background-color: #1e293b;
   position: relative;
 }
 
@@ -100,13 +110,15 @@ select {
   right: 8px;
   font-weight: 600;
   font-size: 0.85rem;
-}.day.has-entry::after {
+}
+
+.day.has-entry::after {
   content: '';
   position: absolute;
   top: 6px;
   right: 6px;
   width: 8px;
   height: 8px;
-  background-color: #1890ff;
+  background-color: #f87171;
   border-radius: 50%;
 }

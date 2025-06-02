@@ -1,7 +1,7 @@
-/* General structure and layout */
+/* ===== General Structure and Layout ===== */
 body {
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+    background-color: #0f172a; 
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,98 +9,107 @@ body {
     margin: 0;
 }
 
-/* Main container for both login and create forms */
+/* ===== Main Container for Forms ===== */
 .container {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #1e2a3c; 
+    border-radius: 14px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
     width: 100%;
-    max-width: 400px;
-    padding: 30px;
+    max-width: 420px;
+    padding: 32px 28px;
+    transition: box-shadow 0.3s ease;
 }
 
-/* Form headings */
+/* ===== Form Headings ===== */
 h2 {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.6rem;
-    color: #333;
+    margin-bottom: 24px;
+    font-size: 1.75rem;
+    color: #f87171; 
+    border-bottom: 1px solid #334155;
+    padding-bottom: 10px;
 }
 
-/* Form input styles */
+/* ===== Form Input Styles ===== */
 form input[type="email"],
 form input[type="password"],
 form input[type="text"] {
     width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 14px;
+    margin: 12px 0;
+    border: 1px solid #475569;
+    border-radius: 8px;
     font-size: 1rem;
     box-sizing: border-box;
+    background-color: #334155;
+    color: #f1f5f9;
+    transition: border-color 0.3s, box-shadow 0.2s ease;
 }
 
 input:focus {
-    border-color: #007bff;
+    border-color: #f87171;
+    background-color: #1e293b;
     outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+    box-shadow: 0 0 6px rgba(248, 113, 113, 0.5);
 }
 
-/* Submit button styles */
+/* ===== Submit Button Styles ===== */
 form button[type="submit"] {
     width: 100%;
-    padding: 12px;
-    background-color: #007bff;
+    padding: 14px;
+    background-color: #f87171;
     color: white;
     font-weight: bold;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 form button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #dc2626;
+    transform: scale(1.02);
 }
 
-/* Toggle link between forms */
+/* ===== Toggle Link Between Forms ===== */
 .toggle-link {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 16px;
 }
 
 .toggle-link p {
-    font-size: 0.9rem;
-    color: #555;
+    font-size: 0.95rem;
+    color: #cbd5e1;
 }
 
 .toggle-link a {
-    color: #007bff;
+    color: #f87171;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .toggle-link a:hover {
     text-decoration: underline;
 }
 
-/* Visibility classes */
+/* ===== Visibility Classes ===== */
 .hidden {
     display: none !important;
 }
 
-/* Responsive layout */
+/* ===== Responsive Layout ===== */
 @media screen and (max-width: 600px) {
     .container {
-        padding: 20px;
+        padding: 24px 20px;
     }
 
-    input, button {
-        padding: 10px;
+    input,
+    button {
+        padding: 12px;
     }
 
     h2 {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
 }

@@ -5,23 +5,48 @@
   z-index: 9999;
 }
 
+/* Base toast style */
 .toast {
-  background-color: #333;
-  color: #fff;
-  padding: 12px 20px;
-  margin-top: 10px;
-  border-radius: 5px;
+  background-color: #1e293b; 
+  color: #f1f5f9;
+  padding: 14px 24px;
+  margin-top: 12px;
+  border-radius: 8px;
   opacity: 0;
   transform: translateX(100%);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  font-family: 'Orbitron', sans-serif;
+  border-left: 5px solid transparent;
 }
 
+/* Show animation */
 .toast.show {
   opacity: 1;
   transform: translateX(0);
 }
 
-.toast.success { background-color: #4CAF50; }
-.toast.error   { background-color: #F44336; }
-.toast.info    { background-color: #2196F3; }
-.toast.warn    { background-color: #FFC107; color: #000; }
+/* Custom types with modern theme accents */
+.toast.success {
+  background-color: #14532d;
+  border-left-color: #4ade80;
+  color: #bbf7d0;
+}
+
+.toast.error {
+  background-color: #7f1d1d;
+  border-left-color: #f87171;
+  color: #fee2e2;
+}
+
+.toast.info {
+  background-color: #1e3a8a;
+  border-left-color: #60a5fa;
+  color: #dbeafe;
+}
+
+.toast.warn {
+  background-color: #78350f;
+  border-left-color: #facc15;
+  color: #fef9c3;
+}
