@@ -179,7 +179,12 @@ $(document).on("click", ".edit-btn", function () {
 			const response = await fetch("api/update_entry.php", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ id: entryId, desc, amount, type }),
+				body: JSON.stringify({
+					id: entryId,
+					desc: desc,
+					amount: amount,
+					type: type,
+				}),
 			});
 
 			if (!response.ok) {
@@ -188,7 +193,6 @@ $(document).on("click", ".edit-btn", function () {
 
 			showToast("Entry updated successfully!");
 			$("#updateModal").hide();
-			$("#entryModal, #modalOverlay").show();
 			await getEntry();
 			showEntries();
 		} catch (error) {
