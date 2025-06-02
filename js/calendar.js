@@ -6,7 +6,6 @@ $(document).ready(async function () {
     } catch (error) {
         console.error("Failed to load entries:", error);
     }
-    console.log("ANother:", financeData);
     const monthNames = [
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -57,7 +56,6 @@ $(document).ready(async function () {
       $calendar.append(`<div></div>`);
     }
 
-    console.log("Test data from calender.js: ", financeData);
     for (let d = 1; d <= daysInMonth; d++) {
       const dateStr = `${selectedYear}-${String(selectedMonth + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
 
