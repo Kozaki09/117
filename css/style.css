@@ -1,343 +1,344 @@
 /* Reset + Base */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
 }
 
 body {
-  text-align: center;
-  background: linear-gradient(to right, #24fffb, #ff42f6);
+	text-align: center;
+	background: linear-gradient(to right, #24fffb, #ff42f6);
 }
 
 /* Containers */
 .container,
 .calendar-wrapper {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 20px 35px rgba(0, 0, 1, 0.09);
-  margin: 50px auto;
-  padding: 1.5rem;
-  box-sizing: border-box;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 20px 35px rgba(0, 0, 1, 0.09);
+	margin: 50px auto;
+	padding: 1.5rem;
+	box-sizing: border-box;
 }
 
 .container {
-  width: 450px;
+	width: 450px;
 }
 
 .calendar-wrapper {
-  width: 90%;
-  max-width: 500px;
+	width: 90%;
+	max-width: 500px;
 }
 
 /* Controls */
 .controls {
-  margin: 20px auto;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
+	margin: 20px auto;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
 }
 
 /* Calendar Header */
 .calendar-header {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
-  margin-bottom: 10px;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 5px;
+	margin-bottom: 10px;
 }
 
 .calendar-header div {
-  font-weight: bold;
-  background: rgb(233, 233, 253);
-  padding: 10px;
-  border-radius: 5px;
+	font-weight: bold;
+	background: rgb(233, 233, 253);
+	padding: 10px;
+	border-radius: 5px;
 }
 
 /* Calendar Days */
 .calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
-  width: 100%;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 5px;
+	width: 100%;
 }
 
 .day {
-  aspect-ratio: 1 / 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 5px;
-  background: rgb(163, 163, 235);
-  transition: background 0.2s ease;
+	aspect-ratio: 1 / 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border-radius: 5px;
+	background: rgb(163, 163, 235);
+	transition: background 0.2s ease;
 }
 
 .day.has-entry {
-  background-color: #d1f7d1; /* light green background */
-  cursor: pointer;
+	background-color: #d1f7d1; /* light green background */
+	cursor: pointer;
 }
 
 .day:hover {
-  background: rgb(125, 125, 235);
+	background: rgb(125, 125, 235);
 }
 
 /* Forms */
 form {
-  margin: 0 2rem;
+	margin: 0 2rem;
 }
 
 .input-group {
-  position: relative;
-  padding: 1% 0;
+	position: relative;
+	padding: 1% 0;
 }
 
 .input-group i {
-  position: absolute;
-  top: 50%;
-  left: 0.5rem;
-  transform: translateY(-50%);
-  color: black;
+	position: absolute;
+	top: 50%;
+	left: 0.5rem;
+	transform: translateY(-50%);
+	color: black;
 }
 
 input,
 #entryModal .input-group input {
-  width: 100%;
-  background: transparent;
-  font-size: 1rem;
-  padding: 0.75rem 0.75rem 0.75rem 2rem;
-  border: none;
-  border-bottom: 1px solid #5c5c5c;
-  transition: border-color 0.3s ease;
-  box-sizing: border-box;
+	width: 100%;
+	background: transparent;
+	font-size: 1rem;
+	padding: 0.75rem 0.75rem 0.75rem 2rem;
+	border: none;
+	border-bottom: 1px solid #5c5c5c;
+	transition: border-color 0.3s ease;
+	box-sizing: border-box;
 }
 
 #entryModal .input-group input {
-  padding: 12px 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding-left: 10px;
-  border-bottom: none;
+	padding: 12px 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding-left: 10px;
+	border-bottom: none;
 }
 
 input:focus,
 #entryModal .input-group input:focus {
-  outline: none;
-  border-bottom: 2px solid hsl(327, 90%, 28%);
-  border-color: hsl(327, 90%, 28%);
+	outline: none;
+	border-bottom: 2px solid hsl(327, 90%, 28%);
+	border-color: hsl(327, 90%, 28%);
 }
 
 input::placeholder {
-  color: transparent;
+	color: transparent;
 }
 
 label,
 #entryModal .input-group label {
-  color: #757575;
-  position: absolute;
-  left: 2rem;
-  top: 1rem;
-  pointer-events: none;
-  transition: 0.3s ease all;
-  font-size: 0.9rem;
-  background: #fff;
-  padding: 0 4px;
+	color: #757575;
+	position: absolute;
+	left: 2rem;
+	top: 1rem;
+	pointer-events: none;
+	transition: 0.3s ease all;
+	font-size: 0.9rem;
+	background: #fff;
+	padding: 0 4px;
 }
 
 #entryModal .input-group label {
-  left: 10px;
-  top: 12px;
-  padding: 0 4px;
+	left: 10px;
+	top: 12px;
+	padding: 0 4px;
 }
 
 input:focus ~ label,
 input:not(:placeholder-shown) ~ label,
 #entryModal .input-group input:focus ~ label,
 #entryModal .input-group input:not(:placeholder-shown) ~ label {
-  top: -0.4rem;
-  font-size: 0.75rem;
-  color: hsl(327, 90%, 28%);
+	top: -0.4rem;
+	font-size: 0.75rem;
+	color: hsl(327, 90%, 28%);
 }
 
 #entryModal .input-group input:not(:placeholder-shown) ~ label {
-  top: -8px; /* slightly different for modal */
+	top: -8px; /* slightly different for modal */
 }
 
 /* Recover link */
 .recover {
-  text-align: right;
-  font-size: 1rem;
-  margin: 1.5rem 0 1rem;
+	text-align: right;
+	font-size: 1rem;
+	margin: 1.5rem 0 1rem;
 }
 
 .recover a {
-  color: rgb(125, 125, 235);
-  text-decoration: none;
-  transition: color 0.3s;
+	color: rgb(125, 125, 235);
+	text-decoration: none;
+	transition: color 0.3s;
 }
 
 .recover a:hover {
-  color: rgb(90, 90, 255);
-  text-decoration: underline;
+	color: rgb(90, 90, 255);
+	text-decoration: underline;
 }
 
 /* Buttons */
 .btn,
 #entryModal button {
-  width: 100%;
-  padding: 8px 0;
-  margin-top: 1.5rem;
-  border-radius: 5px;
-  border: none;
-  background: rgb(125, 125, 235);
-  color: white;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  outline: none;
-  box-sizing: border-box;
+	width: 100%;
+	padding: 8px 0;
+	margin-top: 1.5rem;
+	border-radius: 5px;
+	border: none;
+	background: rgb(125, 125, 235);
+	color: white;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: background 0.3s ease;
+	outline: none;
+	box-sizing: border-box;
 }
 
 .btn:hover,
 #entryModal button:hover {
-  background: rgba(101, 101, 168, 0.834);
+	background: rgba(101, 101, 168, 0.834);
 }
 
 /* Additional Modal Buttons */
 #entryModal button {
-  width: auto;
-  margin: 5px 5px 10px 0;
-  padding: 8px 12px;
+	width: auto;
+	margin: 5px 5px 10px 0;
+	padding: 8px 12px;
 }
 
 /* Or separator */
 .or {
-  font-size: 1.1rem;
-  margin-top: 1rem;
-  text-align: center;
+	font-size: 1.1rem;
+	margin-top: 1rem;
+	text-align: center;
 }
 
 /* Icons */
 .icons {
-  text-align: center;
+	text-align: center;
 }
 
 .icons i {
-  color: rgb(125, 125, 235);
-  padding: 0.8rem 1.5rem;
-  border-radius: 10px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  border: 2px solid rgb(125, 125, 235);
-  margin: 1rem 15px 0 15px;
-  transition: 0.3s ease;
+	color: rgb(125, 125, 235);
+	padding: 0.8rem 1.5rem;
+	border-radius: 10px;
+	font-size: 1.5rem;
+	cursor: pointer;
+	border: 2px solid rgb(125, 125, 235);
+	margin: 1rem 15px 0 15px;
+	transition: 0.3s ease;
 }
 
 .icons i:hover {
-  background: rgba(101, 101, 168, 0.3);
-  font-size: 1.6rem;
+	background: rgba(101, 101, 168, 0.3);
+	font-size: 1.6rem;
 }
 
 /* Links */
 .links {
-  display: flex;
-  justify-content: space-around;
-  padding: 0.9rem;
-  margin-top: 0.9rem;
-  font-weight: bold;
+	display: flex;
+	justify-content: space-around;
+	padding: 0.9rem;
+	margin-top: 0.9rem;
+	font-weight: bold;
 }
 
 button {
-  background: transparent;
-  border: none;
-  color: rgb(125, 125, 235);
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.3s ease;
+	background: transparent;
+	border: none;
+	color: rgb(125, 125, 235);
+	font-size: 1rem;
+	font-weight: bold;
+	cursor: pointer;
+	transition: color 0.3s ease;
 }
 
 button:hover {
-  color: rgb(60, 60, 247);
-  text-decoration: underline;
+	color: rgb(60, 60, 247);
+	text-decoration: underline;
 }
 
 /* Modal */
-#entryModal {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 400px;
-  background: #fff;
-  padding: 25px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  text-align: left;
+#entryModal,
+#updateModal {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 90%;
+	max-width: 400px;
+	background: #fff;
+	padding: 25px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+	z-index: 1000;
+	text-align: left;
 }
 
 #entryModal h2 {
-  text-align: center;
-  margin-bottom: 15px;
+	text-align: center;
+	margin-bottom: 15px;
 }
 
 #entryModal select,
 #entryModal input {
-  width: 100%;
-  margin-bottom: 15px;
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+	width: 100%;
+	margin-bottom: 15px;
+	padding: 10px;
+	font-size: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
 }
 
 /* Entry List */
 #entryList {
-  list-style: none;
-  padding: 0;
+	list-style: none;
+	padding: 0;
 }
 
 #entryList li {
-  font-size: 1rem;
-  margin-bottom: 10px;
+	font-size: 1rem;
+	margin-bottom: 10px;
 }
 
 #entryList li span.desc {
-  font-weight: 500;
-  margin-right: 10px;
+	font-weight: 500;
+	margin-right: 10px;
 }
 
 #entryList li span.amount-in {
-  color: green;
+	color: green;
 }
 
 #entryList li span.amount-out {
-  color: red;
+	color: red;
 }
 
 #entryList li button {
-  background: none;
-  border: none;
-  color: rgb(125, 125, 235);
-  cursor: pointer;
-  margin-left: 10px;
-  transition: text-decoration 0.3s ease;
+	background: none;
+	border: none;
+	color: rgb(125, 125, 235);
+	cursor: pointer;
+	margin-left: 10px;
+	transition: text-decoration 0.3s ease;
 }
 
 #entryList li button:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 #entryList li.total {
-  font-weight: bold;
-  font-size: 1.1rem;
-  margin-top: 15px;
-  border-top: 1px solid #ccc;
-  padding-top: 10px;
-  text-align: right;
+	font-weight: bold;
+	font-size: 1.1rem;
+	margin-top: 15px;
+	border-top: 1px solid #ccc;
+	padding-top: 10px;
+	text-align: right;
 }
