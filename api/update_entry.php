@@ -19,31 +19,25 @@ if (!$input) {
 }
 
 $entry_id = $input['id'];
-$date = $input['date'];
 $type = $input['type'];
 $desc = $input['desc'];
 $amount = $input['amount'];
 
-if (!$entry_id || !$date || !$type || !$desc || !is_numeric($amount)) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Missing or invalid data']);
-    exit;
-}
+// if (!$entry_id || !$type || !$desc || !is_numeric($amount)) {
+//     http_response_code(400);
+//     echo json_encode(['success' => false, 'message' => 'Missing or invalid data']);
+//     exit;
+// }
 
-$sql = "UPDATE spendings SET d, type = ?, description = ?, amount = ? WHERE ID = ? AND user_id = ?";
+$sql = "UPDATE spendings SET type = ?, description = ?, amount = ? WHERE ID = ? AND user_id = ?";
 $stmt = $conn->prepare($sql);
-if (!$stmt) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Prepare failed: ' . $conn->error]);
-    exit;
-}
-$stmt->bind_param("ssdi", $type, $desc, $amount, $entry_id, $user_id);
+$stmt->bind_param("ssdii", $type, $desc, $amount, $entry_id, $user_id);
 
 if ($stmt->execute()) {
     if ($stmt->affected_rows > 0) {
         echo json_encode(['success' => true]);
     } else {
-        http_response_code(500);
+        http_response_code(404);
         echo json_encode(['success' => false, 'message' => 'No rows updated']);
     }
 } else {
