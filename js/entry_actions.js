@@ -224,3 +224,14 @@ $(document).on("click", ".edit-btn", function () {
 	$("#entryModal, #modalOverlay").hide();
 	$("#updateModal").show();
 });
+
+$(document).ready(function () {
+    $.get('php/user.php', function (response) {
+        const data = JSON.parse(response);
+        if (data.user !== null) {
+            $('#user-label').text(data.user);
+        } else {
+            console.warn('User not found in session');
+        }
+    });
+});
