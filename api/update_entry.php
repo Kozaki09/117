@@ -37,8 +37,8 @@ if ($stmt->execute()) {
     if ($stmt->affected_rows > 0) {
         echo json_encode(['success' => true]);
     } else {
-        http_response_code(404);
-        echo json_encode(['success' => false, 'message' => 'No rows updated']);
+        http_response_code(200);
+        echo json_encode(['success' => false, 'message' => 'No changes were made.']);
     }
 } else {
     http_response_code(500);

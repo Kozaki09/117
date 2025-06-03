@@ -163,36 +163,41 @@ $(document).on("click", "#closeUpdateModalBtn", function() {
 $(document).on("click", "#update-action", async function(e) {
   e.preventDefault();
 
-  const entryId = $("#updateId").val();
+  const id = $("#updateId").val();
   const desc = $("#updateDesc").val();
   const amount = parseFloat($("#updateAmount").val());
   const type = $("#updateType").val();
 
-  
+  let toastMessage = "";
+
   if (!desc || isNaN(amount) || !type) {
     showToast("Please fill in all fields.");
     return;
   }
-
-  setTimeout(() => {
-    console.log("TEST:", {entryId, desc, amount, type});
-  }, 5000); 
   
-    try {
-      const response = await fetch("api/update_entry.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: entryId,
-          desc: desc,
-          amount: amount,
-          type: type,
-        }),
-      }); 
-    
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.status}`);
-      }
+  try {
+    const response = await fetch("api/update_entry.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: id,
+        desc: desc,
+        amount: amount,
+        type: type,
+      }),
+    }); 
+  
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    if (!responseData.success) {
+      console.log("Failed to update entry:", responseData.message);
+      toastMessage = "No changes made.";
+    } else {
+      toastMessage = "Entry updated successfully!";
+    }
   
   } catch (error) {
     console.error("Error updating entry:", error);
@@ -200,9 +205,7 @@ $(document).on("click", "#update-action", async function(e) {
     return;
   }
 
-  
-
-  showToast("Entry updated succesfully!");
+  showToast(toastMessage);
   $("#updateModal").hide();
   await getEntry();
   showEntries();
