@@ -1,134 +1,289 @@
-/* ======= Modal Overlay ======= */
-#modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: none;
-  z-index: 999;
+/* ===== Sticky Finance Tracker Header ===== */
+#main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1e2a3c;
+    color: #f87171;
+    padding: 16px 32px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid #334155;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* ======= Modal Base ======= */
+#main-header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Push page content below sticky header */
+body {
+    background-color: #0f172a;
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding-top: 80px;
+}
+
+/* ===== Centering Wrapper ===== */
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* ===== Main Container for Forms ===== */
+.container {
+    background-color: #1e293b;
+    border-radius: 14px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 420px;
+    padding: 32px 28px;
+    transition: box-shadow 0.3s ease;
+}
+
+/* ===== Form Headings ===== */
+h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 1.75rem;
+    color: #f87171;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 10px;
+}
+
+/* ===== Form Input Styles ===== */
+form input[type="email"],
+form input[type="password"],
+form input[type="text"] {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: 1px solid #475569;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    background-color: #334155;
+    color: #f1f5f9;
+    transition: border-color 0.3s, box-shadow 0.2s ease;
+}
+
+input:focus {
+    border-color: #f87171;
+    background-color: #1e293b;
+    outline: none;
+    box-shadow: 0 0 6px rgba(248, 113, 113, 0.5);
+}
+
+/* ===== Submit Button Styles ===== */
+form button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #f87171;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+form button[type="submit"]:hover {
+    background-color: #dc2626;
+    transform: scale(1.02);
+}
+
+/* ===== Toggle Link Between Forms ===== */
+.toggle-link {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.toggle-link p {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+}
+
+.toggle-link a {
+    color: #f87171;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.toggle-link a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Visibility Classes ===== */
+.hidden {
+    display: none !important;
+}
+
+/* ===== Responsive Layout ===== */
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 24px 20px;
+    }
+
+    input,
+    button {
+        padding: 12px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* ===== Modal Overlay ===== */
+#modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+}
+
+/* ===== Modal Base ===== */
 #entryModal,
 #updateModal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 90%;
-  max-width: 400px;
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 10px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    max-width: 420px;
+    background: #1e293b;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none;
 }
 
-/* ======= Modal Titles ======= */
+/* ===== Modal Titles ===== */
 #entryModal h2,
 #updateModal h2 {
-  font-size: 20px;
-  margin-bottom: 16px;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    color: #f87171;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 8px;
 }
 
-/* ======= Modal Form ======= */
+/* ===== Modal Form ===== */
 #entryForm,
 #updateForm {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 .input-group {
-  position: relative;
+    position: relative;
 }
 
 .input-group input {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  outline: none;
-  transition: border-color 0.2s;
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    background-color: #334155;
+    color: #f1f5f9;
+    outline: none;
+    transition: border-color 0.2s ease;
 }
 
 .input-group input:focus {
-  border-color: #0077cc;
+    border-color: #f87171;
+    background-color: #1e293b;
+    box-shadow: 0 0 5px rgba(248, 113, 113, 0.4);
 }
 
 .input-group label {
-  position: absolute;
-  top: -10px;
-  left: 12px;
-  background: #fff;
-  font-size: 12px;
-  padding: 0 4px;
-  color: #666;
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    background: #1e293b;
+    font-size: 12px;
+    padding: 0 4px;
+    color: #cbd5e1;
 }
 
-/* ======= Buttons ======= */
+/* ===== Buttons ===== */
 button[type="submit"],
 button[type="button"] {
-  padding: 10px;
-  font-size: 14px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+    padding: 12px;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
 }
 
 #entry-action,
 #update-action {
-  background-color: #0077cc;
-  color: white;
+    background-color: #f87171;
+    color: white;
+    font-weight: bold;
 }
 
 #entry-action:hover,
 #update-action:hover {
-  background-color: #005fa3;
+    background-color: #dc2626;
+    transform: scale(1.02);
 }
 
 #closeModalBtn,
 #closeUpdateModalBtn {
-  background-color: #ccc;
-  color: #333;
+    background-color: #475569;
+    color: #e2e8f0;
 }
 
 #closeModalBtn:hover,
 #closeUpdateModalBtn:hover {
-  background-color: #aaa;
+    background-color: #334155;
 }
 
-/* ======= Entry List ======= */
+/* ===== Entry List ===== */
 #entryList {
-  margin-top: 16px;
-  list-style: none;
-  text-align: left;
+    margin-top: 20px;
+    list-style: none;
+    text-align: left;
+    color: #e2e8f0;
 }
 
 #entryList li {
-  margin-bottom: 8px;
-  padding: 6px;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-bottom: 1px solid #334155;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .edit-btn,
 .delete-btn {
-  background: none;
-  border: none;
-  color: #0077cc;
-  cursor: pointer;
-  font-size: 12px;
-  margin-left: 6px;
+    background: none;
+    border: none;
+    color: #f87171;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-left: 8px;
 }
 
 .edit-btn:hover,
 .delete-btn:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
