@@ -5,7 +5,7 @@
   z-index: 9999;
 }
 
-/* Base toast style */
+/* ===== Base toast style ===== */
 .toast {
   background-color: #1e293b; 
   color: #f1f5f9;
@@ -20,13 +20,13 @@
   border-left: 5px solid transparent;
 }
 
-/* Show animation */
+/* ===== Show animation ===== */
 .toast.show {
   opacity: 1;
   transform: translateX(0);
 }
 
-/* Custom types with modern theme accents */
+/* ===== Custom types with modern theme accents ===== */
 .toast.success {
   background-color: #14532d;
   border-left-color: #4ade80;
