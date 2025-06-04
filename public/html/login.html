@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <!-- stye -->
+    <link rel="stylesheet" href="/css/login.css">
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- scripts -->
+    <script src="/js/login.js"></script>
+</head>
+<body>
+<div class="container">
+    <div id="login">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="hidden" name="action" value="login">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <p class="error-message" id="login-message"></p>
+            <button type="submit">Login</button>
+        </form>
+        <div class="toggle-link">
+            <p>Don't have an account? <a href="#" onclick="toggleForm()">Create one</a></p>
+        </div>
+    </div>
+
+    <div id="create" class="hidden">
+        <h2>Create Account</h2>
+        <form id="createForm">
+            <input type="hidden" name="action" value="create">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <p class="error-message" id="create-message"></p>
+            <button type="submit">Create Account</button>
+        </form>
+        <div class="toggle-link">
+            <p>Already have an account? <a href="#" onclick="toggleForm()">Login</a></p>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

@@ -42,10 +42,11 @@ $(document).ready(async function () {
         updateOverview(selectedMonth, selectedYear);
     });
 
-    function formatDate(dateStr) {
+  function formatDate(dateStr) {
     const date = new Date(dateStr);
     return `${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
   }
+  
 
   function generateCalendar() {
     const firstDay = new Date(selectedYear, selectedMonth, 1).getDay();

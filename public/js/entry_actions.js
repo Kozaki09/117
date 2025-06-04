@@ -2,7 +2,7 @@ let selectedDate = "";
 
 async function getEntry() {
 	try {
-		const response = await fetch("api/get_entry.php", {
+		const response = await fetch("/api/entry/get", {
 			method: "GET",
 			headers: { Accept: "application/json" },
 			credentials: "include",
@@ -28,6 +28,8 @@ async function getEntry() {
 			});
 		});
 
+		console.log("Date entries loaded:", financeData);
+
 		const now = new Date();
 		let selectedMonth = now.getMonth();
 		let selectedYear = now.getFullYear();
@@ -41,10 +43,17 @@ async function getEntry() {
 async function addEntry(date, desc, amount, type) {
 	try {
 		desc = desc.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-		const response = await fetch("api/add_entry.php", {
+
+		const response = await fetch("/api/entry/add", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ date, desc, amount, type }),
+			credentials: "include",
+			body: JSON.stringify({
+				date: date,
+				desc: desc,
+				amount: parseFloat(amount),
+				type: type,
+			}),
 		});
 
 		if (!response.ok) {
@@ -62,8 +71,8 @@ async function addEntry(date, desc, amount, type) {
 
 async function deleteEntry(entryId) {
 	try {
-		const response = await fetch("api/del_entry.php", {
-			method: "POST",
+		const response = await fetch("api/entry/delete", {
+			method: "DELETE",
 			headers: { "Content-Type": "application/json" },
 			credentials: "include",
 			body: JSON.stringify({ id: entryId }),
@@ -156,8 +165,8 @@ function updateOverview(selectedMonth, selectedYear) {
 }
 
 $(document).on("click", "#closeUpdateModalBtn", function() {
-  $("#updateModal").hide();
-  $("entryModal, #modalOveraly").show();
+	$("#updateModal").hide();
+	$("#entryModal").show();
 });
 
 $(document).on("click", "#update-action", async function(e) {
@@ -168,16 +177,14 @@ $(document).on("click", "#update-action", async function(e) {
   const amount = parseFloat($("#updateAmount").val());
   const type = $("#updateType").val();
 
-  let toastMessage = "";
-
   if (!desc || isNaN(amount) || !type) {
     showToast("Please fill in all fields.");
     return;
   }
   
   try {
-    const response = await fetch("api/update_entry.php", {
-      method: "POST",
+    const response = await fetch("api/entry/update", {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         id: id,
@@ -192,21 +199,16 @@ $(document).on("click", "#update-action", async function(e) {
     }
 
     const responseData = await response.json();
-    if (!responseData.success) {
-      console.log("Failed to update entry:", responseData.message);
-      toastMessage = "No changes made.";
-    } else {
-      toastMessage = "Entry updated successfully!";
-    }
+	showToast(responseData.message);
   
   } catch (error) {
     console.error("Error updating entry:", error);
     showToast("Failed to update entry.");
     return;
   }
-
-  showToast(toastMessage);
+  
   $("#updateModal").hide();
+  $("#entryModal").show();
   await getEntry();
   showEntries();
 });
@@ -219,22 +221,19 @@ $(document).on("click", ".edit-btn", function () {
 		return;
 	}
 
-  $("#updateId").val(entryId);
+  	$("#updateId").val(entryId);
 	$("#updateDesc").val(entry.desc);
 	$("#updateAmount").val(entry.amount);
 	$("#updateType").val(entry.type);
 
-	$("#entryModal, #modalOverlay").hide();
+	$("#entryModal").hide();
 	$("#updateModal").show();
 });
 
 $(document).ready(function () {
-    $.get('php/user.php', function (response) {
-        const data = JSON.parse(response);
-        if (data.user !== null) {
-            $('#user-label').text(data.user);
-        } else {
-            console.warn('User not found in session');
-        }
-    });
+    $.get('api/auth/user', function (data) {
+		if (data.user !== null) {
+			$("#user-label").text(data.user);
+		}
+	})
 });
