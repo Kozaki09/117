@@ -1,13 +1,16 @@
 <html>
-    <head>
-        <title>Login</title>
-        <link rel="stylesheet" href="css/login.css">
-        <script src="js/get_session.js"></script>
-    </head>
-    <div class="container">
-    <div id="login-form">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/get_session.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="form-container" id="login">
         <h2>Login</h2>
-        <form action="php/auth.php" method="POST">
+        <form id="login-form" action="php/auth.php" method="POST">
             <input type="hidden" name="action" value="login">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
@@ -19,9 +22,9 @@
         </div>
     </div>
 
-    <div id="create-form" class="hidden">
+    <div class="form-container" id="create" style="display:none;">
         <h2>Create Account</h2>
-        <form action="php/auth.php" method="POST">
+        <form id ="create-form" action="php/auth.php" method="POST">
             <input type="hidden" name="action" value="create">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
@@ -33,40 +36,5 @@
         </div>
     </div>
 </div>
-
-<script>
-    function toggleForm() {
-        const loginForm = document.getElementById('login-form');
-        const createForm = document.getElementById('create-form');
-
-        if (loginForm.classList.contains('hidden')) {
-            loginForm.classList.remove('hidden');
-            createForm.classList.add('hidden');
-        } else {
-            loginForm.classList.add('hidden');
-            createForm.classList.remove('hidden');
-        }
-    }
-
-    function getStatus() {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const status = urlParams.get('status');
-
-        const p = document.getElementsByClassName('error-message');
-
-        if (status == 'login_failed') {
-            p[0].textContent = "Login Failed. Invalid Credentials.";
-        } else if (status == 'username_exists') {
-            p[1].textContent = "Username Already Exists.";
-        } else if (status == 'create_failed') {
-            p[1].textContent = "Create Failed. Something Went Wrong.";
-        } else {
-
-        }
-    }
-
-    window.onload = getStatus;
-</script>
-
+</body>
 </html>

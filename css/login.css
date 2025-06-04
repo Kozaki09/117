@@ -93,11 +93,6 @@ form button[type="submit"]:hover {
     text-decoration: underline;
 }
 
-/* ===== Visibility Classes ===== */
-.hidden {
-    display: none !important;
-}
-
 /* ===== Responsive Layout ===== */
 @media screen and (max-width: 600px) {
     .container {
