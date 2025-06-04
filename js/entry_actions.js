@@ -168,8 +168,6 @@ $(document).on("click", "#update-action", async function(e) {
   const amount = parseFloat($("#updateAmount").val());
   const type = $("#updateType").val();
 
-  let toastMessage = "";
-
   if (!desc || isNaN(amount) || !type) {
     showToast("Please fill in all fields.");
     return;
@@ -192,11 +190,13 @@ $(document).on("click", "#update-action", async function(e) {
     }
 
     const responseData = await response.json();
+
     if (!responseData.success) {
       console.log("Failed to update entry:", responseData.message);
-      toastMessage = "No changes made.";
+      showToast(responseData.message);
     } else {
-      toastMessage = "Entry updated successfully!";
+      console.log("Entry updated successfully");
+	  showToast("Entry updated successfully!");
     }
   
   } catch (error) {
@@ -205,7 +205,6 @@ $(document).on("click", "#update-action", async function(e) {
     return;
   }
 
-  showToast(toastMessage);
   $("#updateModal").hide();
   await getEntry();
   showEntries();

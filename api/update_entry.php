@@ -23,11 +23,11 @@ $type = $input['type'];
 $desc = $input['desc'];
 $amount = $input['amount'];
 
-// if (!$entry_id || !$type || !$desc || !is_numeric($amount)) {
-//     http_response_code(400);
-//     echo json_encode(['success' => false, 'message' => 'Missing or invalid data']);
-//     exit;
-// }
+if (!$entry_id || !$type || !$desc || !is_numeric($amount)) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Missing or invalid data']);
+    exit;
+}
 
 $sql = "UPDATE spendings SET type = ?, description = ?, amount = ? WHERE ID = ? AND user_id = ?";
 $stmt = $conn->prepare($sql);
