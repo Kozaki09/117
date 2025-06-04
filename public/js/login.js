@@ -1,11 +1,20 @@
 $(document).ready(function () {
   // Toggle forms
   window.toggleForm = function () {
-    $('#login').toggleClass('hidden');
-    $('#create').toggleClass('hidden');
-    $('#login-message').text('');
-    $('#create-message').text('');
-  };
+    const $login = $('#login');
+    const $create = $('#create');
+
+    if ($login.is(':visible')) {
+        $login.fadeOut(300, function () {
+            $create.fadeIn(300);
+        });
+    } else {
+        $create.fadeOut(300, function () {
+            $login.fadeIn(300);
+        });
+    }
+
+};
 
   // Login form submission
   $('#loginForm').submit(function (e) {
