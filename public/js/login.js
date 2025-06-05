@@ -56,7 +56,7 @@ $(document).ready(function () {
       contentType: 'application/json',
       success: function () {
         // Redirect on success
-        window.location.href = '/dashboard.html';
+        window.location.href = '/';
       },
       error: function (xhr) {
         // Check server response for specific errors if you want

@@ -72,7 +72,7 @@ async function authGuard(req, res, next) {
     if (req.originalUrl !== '/') {
         return res.redirect('/');
     }
-
+    
     return next();
 }
 
