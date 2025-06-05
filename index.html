@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
     <title>Finance Tracker Calendar</title>
@@ -19,7 +18,9 @@
   </head>
 
   <body>
-    <h1>Finance Tracker</h1>
+    <header id="main-header">
+      <h1>Finance Tracker</h1>
+    </header>
 
     <div class="controls">
       <select id="monthSelect"></select>
@@ -95,9 +96,9 @@
       <form id="entryForm">
         <select id="type">
           <option value="in">Money In</option>
-          <option value="out">Money Out</option>
-        </select><br /><br />
-        <input type="hidden" id="date" name="date">
+          <option value="out">Money Out</option></select
+        ><br /><br />
+        <input type="hidden" id="date" name="date" />
         <div class="input-group">
           <input type="text" id="desc" placeholder=" " required />
           <label for="desc">Description</label>
@@ -116,11 +117,11 @@
     <div id="updateModal">
       <h2>Update Entry</h2>
       <form id="updateForm">
-        <input type="hidden" id="updateId" name="id">
+        <input type="hidden" id="updateId" name="id" />
         <select id="updateType">
           <option value="in">Money In</option>
-          <option value="out">Money Out</option>
-        </select><br /><br />
+          <option value="out">Money Out</option></select
+        ><br /><br />
         <div class="input-group">
           <input type="text" id="updateDesc" placeholder=" " required />
           <label for="updateDesc">Description</label>
@@ -137,5 +138,4 @@
     <div id="modalOverlay"></div>
     <div id="toast-container"></div>
   </body>
-
 </html>

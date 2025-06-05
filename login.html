@@ -1,72 +1,94 @@
 <html>
-    <head>
-        <title>Login</title>
-        <link rel="stylesheet" href="css/login.css">
-        <script src="js/get_session.js"></script>
-    </head>
-    <div class="container">
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet" href="css/login.css" />
+    <script src="js/get_session.js"></script>
+  </head>
+  <div class="container">
+    <!-- Login Form -->
     <div id="login-form">
-        <h2>Login</h2>
-        <form action="php/auth.php" method="POST">
-            <input type="hidden" name="action" value="login">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <p class="error-message" id="login-message"></p>
-            <button type="submit">Login</button>
-        </form>
-        <div class="toggle-link">
-            <p>Don't have an account? <a href="#" onclick="toggleForm()">Create one</a></p>
-        </div>
+      <h2>Login</h2>
+      <form action="php/auth.php" method="POST">
+        <!-- Hidden input to indicate login action -->
+        <input type="hidden" name="action" value="login" />
+        <input type="text" name="username" placeholder="Username" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <p class="error-message" id="login-message"></p>
+        <button type="submit">Login</button>
+      </form>
+      <!-- Link to switch to create account form -->
+      <div class="toggle-link">
+        <p>
+          Don't have an account?
+          <a href="#" onclick="toggleForm()">Create one</a>
+        </p>
+      </div>
     </div>
 
+    <!-- Create Account Form (hidden by default) -->
     <div id="create-form" class="hidden">
-        <h2>Create Account</h2>
-        <form action="php/auth.php" method="POST">
-            <input type="hidden" name="action" value="create">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <p class="error-message" id="create-message"></p>
-            <button type="submit">Create Account</button>
-        </form>
-        <div class="toggle-link">
-            <p>Already have an account? <a href="#" onclick="toggleForm()">Login</a></p>
-        </div>
+      <h2>Create Account</h2>
+      <form action="php/auth.php" method="POST">
+        <!-- Hidden input to indicate account creation -->
+        <input type="hidden" name="action" value="create" />
+        <input type="text" name="username" placeholder="Username" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <p class="error-message" id="create-message"></p>
+        <button type="submit">Create Account</button>
+      </form>
+      <!-- Link to switch back to login form -->
+      <div class="toggle-link">
+        <p>
+          Already have an account? <a href="#" onclick="toggleForm()">Login</a>
+        </p>
+      </div>
     </div>
-</div>
+  </div>
 
-<script>
+  <script>
     function toggleForm() {
-        const loginForm = document.getElementById('login-form');
-        const createForm = document.getElementById('create-form');
+      // Toggle between login and create account forms
+      const loginForm = document.getElementById("login-form");
+      const createForm = document.getElementById("create-form");
 
-        if (loginForm.classList.contains('hidden')) {
-            loginForm.classList.remove('hidden');
-            createForm.classList.add('hidden');
-        } else {
-            loginForm.classList.add('hidden');
-            createForm.classList.remove('hidden');
-        }
+      if (loginForm.classList.contains("hidden")) {
+        loginForm.classList.remove("hidden");
+        createForm.classList.add("hidden");
+      } else {
+        loginForm.classList.add("hidden");
+        createForm.classList.remove("hidden");
+      }
     }
 
     function getStatus() {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const status = urlParams.get('status');
+      // Show error messages based on URL query parameters
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const status = urlParams.get("status");
 
-        const p = document.getElementsByClassName('error-message');
+      const p = document.getElementsByClassName("error-message");
 
-        if (status == 'login_failed') {
-            p[0].textContent = "Login Failed. Invalid Credentials.";
-        } else if (status == 'username_exists') {
-            p[1].textContent = "Username Already Exists.";
-        } else if (status == 'create_failed') {
-            p[1].textContent = "Create Failed. Something Went Wrong.";
-        } else {
-
-        }
+      if (status == "login_failed") {
+        p[0].textContent = "Login Failed. Invalid Credentials.";
+      } else if (status == "username_exists") {
+        p[1].textContent = "Username Already Exists.";
+      } else if (status == "create_failed") {
+        p[1].textContent = "Create Failed. Something Went Wrong.";
+      } else {
+      }
     }
 
+    // Run getStatus when the page loads
     window.onload = getStatus;
-</script>
-
+  </script>
 </html>

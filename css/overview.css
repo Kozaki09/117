@@ -1,81 +1,94 @@
+/* ===== Container for the entire overview section ===== */
 #overview-wrapper {
   max-width: 900px;
   margin: 40px auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: #1e2a3c; 
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  color: #f1f5f9;
 }
 
+/* ===== Header section with title and user label */
 #overview-header {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 24px;
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 2px solid #334155;
   padding-bottom: 12px;
 }
 
 #overview-header h4 {
   font-size: 18px;
   font-weight: 600;
+  color: #f87171; 
 }
 
+/* ===== Styling for the label showing the logged-in user ===== */
 #user-label {
   font-size: 16px;
-  color: #555;
+  color: #cbd5e1;
 }
 
+/* ===== Wrapper for all overview data columns ===== */
 #overview-content {
   display: flex;
   flex-wrap: wrap;
   gap: 32px;
-  background-color: #f0faff;
+  background-color: #0f172a;
   padding: 16px;
   border-radius: 10px;
 }
 
+/* ===== Each data column box ===== */
 .overview-column {
   flex: 1;
   min-width: 280px;
-  background-color: #fff7e6;
-  border: 1px solid #ccc;
+  background-color: #1e293b;
+  border: 1px solid #334155;
   border-radius: 8px;
   padding: 16px;
 }
 
+/* ===== Title inside each overview column ===== */
 .overview-column h3 {
   font-size: 18px;
   margin-bottom: 12px;
-  color: #0077cc;
+  color: #f87171; 
 }
 
+/* ===== Row showing individual data (label and value) ===== */
 .overview-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
   padding-bottom: 6px;
-  border-bottom: 1px dashed #bbb;
+  border-bottom: 1px dashed #475569;
 }
 
 .overview-row h3 {
   font-size: 14px;
   font-weight: 500;
+  color: #cbd5e1;
 }
 
 .overview-row p {
   font-size: 14px;
   font-weight: 600;
+  color: #f1f5f9;
 }
 
+/* ===== Footer section below the overview ===== */
 #overview-footer {
   text-align: right;
   margin-top: 12px;
 }
 
+/* ===== Logout button styling ===== */
 #logoutBtn {
   padding: 10px 16px;
-  background-color: #ff4d4f;
+  background-color: #f87171;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -84,6 +97,7 @@
   transition: background-color 0.2s ease-in-out;
 }
 
+/* ===== Button hover effect ===== */
 #logoutBtn:hover {
-  background-color: #d9363e;
+  background-color: #dc2626;
 }

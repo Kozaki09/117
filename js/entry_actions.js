@@ -15,7 +15,7 @@ async function getEntry() {
 		const data = await response.json();
 		financeData = {};
 
-		data.forEach((entry) => {
+		data.forEach((entry) => {	// Group entries by date
 			if (!financeData[entry.date]) {
 				financeData[entry.date] = [];
 			}
@@ -28,7 +28,7 @@ async function getEntry() {
 			});
 		});
 
-		const now = new Date();
+		const now = new Date();		// Refresh overview with current month/year
 		let selectedMonth = now.getMonth();
 		let selectedYear = now.getFullYear();
 
@@ -40,7 +40,7 @@ async function getEntry() {
 
 async function addEntry(date, desc, amount, type) {
 	try {
-		desc = desc.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+		desc = desc.replace(/</g, "&lt;").replace(/>/g, "&gt;");	// Sanitize description
 		const response = await fetch("api/add_entry.php", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -51,9 +51,9 @@ async function addEntry(date, desc, amount, type) {
 			throw new Error(`Server error: ${response.status}`);
 		}
 
-		showToast("Entry added!");
-		await getEntry();
-		showEntries();
+		showToast("Entry added!");	
+		await getEntry();	// Refresh entries
+		showEntries();		// Update modal
 	} catch (error) {
 		console.error("Error adding entry:", error);
 		showToast("Failed to add entry. Try again.");
@@ -163,36 +163,41 @@ $(document).on("click", "#closeUpdateModalBtn", function() {
 $(document).on("click", "#update-action", async function(e) {
   e.preventDefault();
 
-  const entryId = $("#updateId").val();
+  const id = $("#updateId").val();
   const desc = $("#updateDesc").val();
   const amount = parseFloat($("#updateAmount").val());
   const type = $("#updateType").val();
 
-  
+  let toastMessage = "";
+
   if (!desc || isNaN(amount) || !type) {
     showToast("Please fill in all fields.");
     return;
   }
-
-  setTimeout(() => {
-    console.log("TEST:", {entryId, desc, amount, type});
-  }, 5000); 
   
-    try {
-      const response = await fetch("api/update_entry.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: entryId,
-          desc: desc,
-          amount: amount,
-          type: type,
-        }),
-      }); 
-    
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.status}`);
-      }
+  try {
+    const response = await fetch("api/update_entry.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: id,
+        desc: desc,
+        amount: amount,
+        type: type,
+      }),
+    }); 
+  
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    if (!responseData.success) {
+      console.log("Failed to update entry:", responseData.message);
+      toastMessage = "No changes made.";
+    } else {
+      toastMessage = "Entry updated successfully!";
+    }
   
   } catch (error) {
     console.error("Error updating entry:", error);
@@ -200,9 +205,7 @@ $(document).on("click", "#update-action", async function(e) {
     return;
   }
 
-  
-
-  showToast("Entry updated succesfully!");
+  showToast(toastMessage);
   $("#updateModal").hide();
   await getEntry();
   showEntries();
@@ -223,4 +226,15 @@ $(document).on("click", ".edit-btn", function () {
 
 	$("#entryModal, #modalOverlay").hide();
 	$("#updateModal").show();
+});
+
+$(document).ready(function () {
+    $.get('php/user.php', function (response) {
+        const data = JSON.parse(response);
+        if (data.user !== null) {
+            $('#user-label').text(data.user);
+        } else {
+            console.warn('User not found in session');
+        }
+    });
 });
