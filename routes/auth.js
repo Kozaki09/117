@@ -36,8 +36,7 @@ router.post('/create', async (req, res) => {
       return res.status(409).json({ error: 'Username exists' });  // Conflict
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    await pool.query('INSERT INTO users (user, password) VALUES (?, ?)', [username, hashedPassword]);
-    req.session.user = username;
+    const [result] = await pool.query('INSERT INTO users (user, password) VALUES (?, ?)',  [username, hashedPassword]);
     return res.status(201).json({ message: 'Account created' });
   } catch (err) {
     console.error(err);
